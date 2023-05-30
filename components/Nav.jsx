@@ -11,6 +11,16 @@ const Nav = () => {
   // PROVIDERS
   const [providers, setProviders] = useState(null)
 
+  // DROPDOWN STATE
+  const [toggleDropdown, SetToggleDropdown] = useState(false)
+
+  // FUNCTION TO TOGGLE DROPDOWN
+  const handleDropdownToggle = () => {
+    SetToggleDropdown((prev) => !prev)
+  }
+  //END OF  FUNCTION TO TOGGLE DROPDOWN
+
+  // USEEFFECT TO GET PROVIDERS AS PAGE LOADS
   useEffect(() => {
     const setProviders = async () => {
       try {
@@ -23,6 +33,9 @@ const Nav = () => {
     }
     setProviders()
   }, [])
+
+  // END OF USEEFFECT TO GET PROVIDERS AS PAGE LOADS
+
   return (
     <nav className='w-full flex justify-between items-center mb-16 pt-3'>
       <Link href='/' className='flex gap-2 items-center justify-center'>
@@ -36,6 +49,8 @@ const Nav = () => {
           Promptopia
         </p>
       </Link>
+
+      {/* LARGE SCREEN NAV */}
       <div className='hidden sm:flex'>
         {isUserLoggedIn ? (
           <div className='flex gap-3 md:gap-5 '>
@@ -80,6 +95,41 @@ const Nav = () => {
           </>
         )}
       </div>
+      {/* END OF LARGE SCREEN NAV */}
+
+      {/* SMALL SCREEN NAV */}
+      <div className='sm:hidden flex'>
+        {isUserLoggedIn ? (
+          <div className='flex'>
+            <Image
+              width={37}
+              height={37}
+              alt='profile'
+              src='/assets/images/logo.svg'
+              className='rounded-full'
+              onClick={handleDropdownToggle}
+            />
+          </div>
+        ) : (
+          <>
+            {providers &&
+              Object.values(providers).map((provider) => {
+                return (
+                  <button
+                    type='button'
+                    key={provider?.id}
+                    onClick={signIn(provider?.id)}
+                    className='rounded-full border border-black bg-black text-white py-1.5 px-5 transition-all hover:bg-white text-center text-sm font-inter flex items-center justify-center'
+                  >
+                    Sign In
+                  </button>
+                )
+              })}
+          </>
+        )}
+      </div>
+
+      {/* END OF SMALL SCREEN NAV */}
     </nav>
   )
 }
