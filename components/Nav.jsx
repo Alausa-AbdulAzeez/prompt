@@ -100,7 +100,7 @@ const Nav = () => {
       {/* SMALL SCREEN NAV */}
       <div className='sm:hidden flex'>
         {isUserLoggedIn ? (
-          <div className='flex'>
+          <div className='flex relative'>
             <Image
               width={37}
               height={37}
@@ -109,6 +109,31 @@ const Nav = () => {
               className='rounded-full'
               onClick={handleDropdownToggle}
             />
+            {toggleDropdown && (
+              <div className='absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end'>
+                <Link
+                  href='/profile'
+                  onClick={handleDropdownToggle}
+                  className='text-sm font-inter text-gray-700 hover:text-gray-500 font-medium'
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href='/create-prompt'
+                  onClick={handleDropdownToggle}
+                  className='text-sm font-inter text-gray-700 hover:text-gray-500 font-medium'
+                >
+                  Create Prompt
+                </Link>
+                <button
+                  type='button'
+                  onClick={signOut().then(() => handleDropdownToggle)}
+                  className='mt-5 w-full black_btn'
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>
