@@ -41,7 +41,7 @@ const Nav = () => {
   // END OF USEEFFECT TO GET PROVIDERS AS PAGE LOADS
 
   return (
-    <nav className='w-full flex justify-between items-center mb-16 pt-3 sticky top-0'>
+    <nav className='w-full flex justify-between items-center mb-16 pt-3 sticky top-0 z-10 bg-white/0 backdrop-blur'>
       <Link href='/' className='flex gap-2 items-center justify-center'>
         <Image
           src='/assets/images/logo.svg'
