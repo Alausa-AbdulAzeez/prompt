@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useState } from 'react'
 
 const CreatePrompt = () => {
@@ -54,6 +55,17 @@ const CreatePrompt = () => {
             placeholder='#tag'
           ></input>
         </label>
+        <div className='flex-end mx-3 mb-5 gap-4'>
+          <Link href='/' className='text-gray-500 text-sm'>
+            Cancle
+          </Link>
+          <button
+            type='submit '
+            className='px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white hover:bg-orange-700'
+          >
+            Create
+          </button>
+        </div>
       </form>
     </section>
   )
