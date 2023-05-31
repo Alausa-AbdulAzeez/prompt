@@ -76,7 +76,8 @@ const Nav = () => {
                 width={37}
                 height={37}
                 alt='profile'
-                src='/assets/images/logo.svg'
+                // src='/assets/images/logo.svg'
+                src={session?.user?.image}
                 className='rounded-full'
               />
             </Link>
