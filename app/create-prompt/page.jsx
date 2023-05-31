@@ -1,12 +1,16 @@
 'use client'
 import Form from '@components/Form'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const CreatePrompt = () => {
+  // SESSION
+  const { data: session } = useSession()
+
   // ROUTING
-  // const router = useRouter()
+  const router = useRouter()
   // POST DETAILS
   const [post, setPost] = useState({
     prompt: '',
@@ -37,7 +41,7 @@ const CreatePrompt = () => {
         }),
       })
       if (response.ok) {
-        // router.push('/')
+        router.push('/')
       }
     } catch (error) {
       console.log(error)
