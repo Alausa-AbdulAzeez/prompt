@@ -2,11 +2,15 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { getProviders, signIn, signOut } from 'next-auth/react'
+import { getProviders, signIn, signOut, useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 const Nav = () => {
-  const isUserLoggedIn = true
+  // SESSION
+  const { data: session } = useSession()
+  console.log(session)
+
+  const isUserLoggedIn = false
 
   // PROVIDERS
   const [providers, setProviders] = useState(null)
@@ -22,7 +26,7 @@ const Nav = () => {
 
   // USEEFFECT TO GET PROVIDERS AS PAGE LOADS
   useEffect(() => {
-    const setProviders = async () => {
+    const handleSetProviders = async () => {
       try {
         const response = await getProviders()
 
@@ -31,7 +35,7 @@ const Nav = () => {
         console.log(error)
       }
     }
-    setProviders()
+    handleSetProviders()
   }, [])
 
   // END OF USEEFFECT TO GET PROVIDERS AS PAGE LOADS
@@ -52,7 +56,7 @@ const Nav = () => {
 
       {/* LARGE SCREEN NAV */}
       <div className='hidden sm:flex'>
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className='flex gap-3 md:gap-5 '>
             <Link
               href='/create-prompt'
@@ -85,7 +89,7 @@ const Nav = () => {
                   <button
                     type='button'
                     key={provider?.id}
-                    onClick={signIn(provider?.id)}
+                    onClick={() => signIn(provider?.id)}
                     className='rounded-full border border-black bg-black text-white py-1.5 px-5 transition-all hover:bg-white text-center text-sm font-inter flex items-center justify-center'
                   >
                     Sign In
@@ -99,13 +103,13 @@ const Nav = () => {
 
       {/* SMALL SCREEN NAV */}
       <div className='sm:hidden flex'>
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className='flex relative'>
             <Image
               width={37}
               height={37}
               alt='profile'
-              src='/assets/images/logo.svg'
+              src={session?.user?.image}
               className='rounded-full'
               onClick={handleDropdownToggle}
             />
@@ -143,7 +147,7 @@ const Nav = () => {
                   <button
                     type='button'
                     key={provider?.id}
-                    onClick={signIn(provider?.id)}
+                    onClick={() => signIn(provider?.id)}
                     className='rounded-full border border-black bg-black text-white py-1.5 px-5 transition-all hover:bg-white text-center text-sm font-inter flex items-center justify-center'
                   >
                     Sign In
