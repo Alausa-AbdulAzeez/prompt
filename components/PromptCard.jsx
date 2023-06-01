@@ -1,11 +1,19 @@
 'use client'
 
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
-const PromptCard = ({ post }) => {
+const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
+  //   USER SESSION
+  const { data: session } = useSession()
+
   // CURRENTLY COPIED PROMPT
   const [copied, setCopied] = useState('')
+
+  // PATHNAME
+  const pathName = usePathname()
 
   // COPY TO CLIPBOARD FUNCTIONALITY
   const handleCopy = () => {
@@ -53,6 +61,22 @@ const PromptCard = ({ post }) => {
       <p className='font-inter text-sm blue_gradient cursor-pointer'>
         #{post.tag}
       </p>
+      {session?.user.id === post.creator._id && pathName === '/profile' && (
+        <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
+          <p
+            className='font-inter text-sm green_gradient cursor-pointer'
+            onClick={handleEdit}
+          >
+            Edit
+          </p>
+          <p
+            className='font-inter text-sm orange_gradient cursor-pointer'
+            onClick={handleDelete}
+          >
+            Delete
+          </p>
+        </div>
+      )}
     </div>
   )
 }

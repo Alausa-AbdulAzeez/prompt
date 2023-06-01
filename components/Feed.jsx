@@ -21,8 +21,6 @@ const Feed = () => {
     const getFeed = async () => {
       try {
         const res = await (await fetch('/api/prompt')).json()
-        const res2 = await fetch('/api/prompt')
-        console.log(await res2.json())
         setPromptList(res)
       } catch (error) {
         console.log(error)

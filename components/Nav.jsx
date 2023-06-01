@@ -8,9 +8,6 @@ import { useEffect, useState } from 'react'
 const Nav = () => {
   // SESSION
   const { data: session } = useSession()
-  console.log(session)
-
-  const isUserLoggedIn = false
 
   // PROVIDERS
   const [providers, setProviders] = useState(null)

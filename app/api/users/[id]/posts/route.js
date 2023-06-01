@@ -12,7 +12,6 @@ export const GET = async (req, { params }) => {
 
     // CHECK IF USER EXISTS
     const userExists = await User.findById({ _id: params?.id })
-    console.log(userExists)
 
     if (!userExists) {
       throw new Error('User does not exist')
