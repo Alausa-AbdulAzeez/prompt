@@ -7,6 +7,15 @@ const PromptCard = ({ post }) => {
   // CURRENTLY COPIED PROMPT
   const [copied, setCopied] = useState('')
 
+  // COPY TO CLIPBOARD FUNCTIONALITY
+  const handleCopy = () => {
+    setCopied(post?.prompt)
+    navigator.clipboard.writeText(post?.prompt)
+
+    // SET COPIED BACK TO DEFAULT AFTER 3 SECONDS
+    setTimeout(() => setCopied(''), 3000)
+  }
+
   return (
     <div className='prompt_card'>
       <div className='flex justify-between items-start gap-5'>
@@ -26,7 +35,7 @@ const PromptCard = ({ post }) => {
               {post?.creator?.email}
             </p>
           </div>
-          <div className='copy_btn'>
+          <div className='copy_btn' onClick={handleCopy}>
             <Image
               alt='copy_icon'
               width={12}
