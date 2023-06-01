@@ -1,10 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import PromptCard from './PromptCard'
 
 const Feed = () => {
   // SEARCH TEXT
   const [searchText, setSearchText] = useState('')
+
+  // PROMPT LIST
+  const [promptList, setPromptList] = useState([])
 
   // FUNCTION FOR SETTING SEARCH TEXT
   const handleSearchChange = (e) => {
@@ -16,8 +20,8 @@ const Feed = () => {
   useEffect(() => {
     const getFeed = async () => {
       try {
-        const res = await fetch('/api/prompt')
-        console.log(res)
+        const res = await (await fetch('/api/prompt')).json()
+        setPromptList(res)
       } catch (error) {
         console.log(error)
       }
@@ -38,6 +42,11 @@ const Feed = () => {
           className='search_input peer'
         />
       </form>
+      <div className='mt16 prompt_layout'>
+        {promptList?.map((singlePrompt) => {
+          return <PromptCard key={singlePrompt?._id} post={singlePrompt} />
+        })}
+      </div>
     </section>
   )
 }
