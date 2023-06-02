@@ -2,34 +2,39 @@
 
 import Profile from '@components/Profile'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const ProfilePage = () => {
+  // POSTS
   const [myPosts, setMyPosts] = useState([])
+
+  //   ROUTER
+  const router = useRouter()
 
   //   USER SESSION
   const { data: session } = useSession()
 
   //   EDIT POST FUNCTION
   const handleEdit = (post) => {
-    // router.push(`/update-prompt?id=${post._id}`)
+    router.push(`/update-prompt?id=${post._id}`)
   }
   //   END OF EDIT POST FUNCTION
 
   //   DELETE POST FUNCTION
   const handleDelete = async (post) => {
-    // const hasConfirmed = confirm('Are you sure you want to delete this prompt?')
-    // if (hasConfirmed) {
-    //   try {
-    //     await fetch(`/api/prompt/${post._id.toString()}`, {
-    //       method: 'DELETE',
-    //     })
-    //     const filteredPosts = myPosts.filter((item) => item._id !== post._id)
-    //     setMyPosts(filteredPosts)
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
+    const hasConfirmed = confirm('Are you sure you want to delete this prompt?')
+    if (hasConfirmed) {
+      try {
+        await fetch(`/api/prompt/${post._id.toString()}`, {
+          method: 'DELETE',
+        })
+        const filteredPosts = myPosts.filter((item) => item._id !== post._id)
+        setMyPosts(filteredPosts)
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
   //   END OF DELETE POST FUNCTION
 
