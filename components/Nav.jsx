@@ -66,7 +66,7 @@ const Nav = () => {
               onClick={signOut}
               className='border border-black rounded-full py-1.5 px-5 text-black hover:bg-black hover:text-white text-center text-sm font-inter justify-center items-center'
             >
-              Sign Out
+              Sign out
             </button>
             <Link href='/profile'>
               <Image
