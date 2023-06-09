@@ -88,7 +88,7 @@ const Nav = () => {
                     type='button'
                     key={provider?.id}
                     onClick={() => signIn(provider?.id)}
-                    className='rounded-full border border-black bg-black text-white py-1.5 px-5 transition-all hover:bg-white text-center text-sm font-inter flex items-center justify-center'
+                    className='rounded-full border border-black bg-black text-white py-1.5 px-5 transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center'
                   >
                     Sign In
                   </button>
